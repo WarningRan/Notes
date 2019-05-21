@@ -1,6 +1,9 @@
 # regression
 （相关博客笔记https://blog.csdn.net/herosunly/article/details/88110338）
 输出是一个scalar数值
+
+![avatar](pic/1.png)
+
 ## 第一步：模型model
 假设考虑线性模型
 
@@ -11,7 +14,7 @@ b: bias, w: weight, $\mathcal{X}_{i}$: feature
 
 w, b值很多，会有很多可选的function；有很多影响y的x
 
-## 第二步：goodness of function
+## 第二步：判断模型好坏goodness of function
 
 * input: training data: $\left(x^{1}, \hat{y}^{1}\right)$, $\left(x^{2}, \hat{y}^{2}\right)$,……, $\left(x^{10}, \hat{y}^{10}\right)$
 * output: scalar
@@ -56,6 +59,8 @@ $\eta$是学习率
 
 3、计算下一个斜率（微分）直到微分为零，无法移动。这可能会导致得到局部最优，而不是全局最优。
 
+![avatar](pic/2.png)
+
 ### 两个参数
 $w^{*}, b^{*}=\arg \min _{w, b} L(w, b)$
 
@@ -72,10 +77,12 @@ $b^{1} \leftarrow b^{0}-\eta\left.\frac{\partial L}{\partial b}\right|_{w=w^{0},
 也可用向量$\nabla L=\left[ \begin{array}{c}{\frac{\partial L}{\partial w}} \\ {\frac{\partial L}{\partial b}}\end{array}\right]$ gradient表示
 
 可以说：梯度下降是找最快下山的方法
+![avatar](pic/3.png)
 
 ### 梯度下降的问题
 
 一个假设并不是始终正确的：随着参数的值的更新，损失函数会越来越小，直到找到损失函数的最小值
+![avatar](pic/4.png)
 
 * 因为微分为零，被困在局部最优
 * 因为微分为零，停在鞍点（saddle point），不是极值的点
@@ -96,8 +103,10 @@ model的线性与否取决于参数（w，b）是不是线性，而不是特征�
 
 * 原因：在训练过程中，模型越来越复杂时，error越小，因为多次的函数包含小的次的函数（例：三次函数包含二次函数）
 
-而在测试过程中，则不然，称为过拟合（overfitting）
+![avatar](pic/5.png)
 
+而在测试过程中，则不然，称为过拟合（overfitting）
+![avatar](pic/6.png)
 如何解决过拟合？
 
 * 收集更多的数据
@@ -110,10 +119,15 @@ model的线性与否取决于参数（w，b）是不是线性，而不是特征�
 
 $L=\sum_{n}\left(\hat{y}^{n}-\left(b+\sum w_{i} x_{i}\right)\right)^{2}+\lambda \sum\left(w_{i}\right)^{2}$
 
-加号后面是：找到使w参数很小的函数（也就是平滑的函数）$\lambda$取值越大，函数越平滑；表示惩罚项
+加号后面是：找到使w参数很小的函数（也就是平滑的函数）
+$\lambda$取值越大，函数越平滑；表示惩罚项
+
+那为什么函数w越小，函数就越平滑呢。因为当x变了一个$x+\Delta x$（一个很小的变化量）的时候，整体的$y=w * x+b$不会变化太大，所以得到的值也更加准确
 
 为什么函数要平滑？我们相信越平滑越可能正确
 
-为什么没有考虑bias？bias不影响函数平滑，它本身只是一条线，只是对曲线进行了平移
+为什么没有考虑bias？bias不影响函数平滑与否，它本身只是一条线，只是对曲线进行了平移
 
-$\lambda$取值越大，training error越大【此处不解】
+如图，$\lambda$取值越大，training error越大，并不代表testing error也变大。选出最好的$\lambda$使得model最好【此处不解】
+
+![avatar](pic/7.png)
