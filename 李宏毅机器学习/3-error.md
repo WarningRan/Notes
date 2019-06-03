@@ -48,3 +48,14 @@ function比喻成打靶
 * 加入更多的特征
 * 更复杂的model
 
+## What to do with large variance？
+
+![avatar](/pic/12.png)
+
+* more data：有效，但不一定实际
+可以按自己理解制造多一些数据
+
+* regularization：强迫曲线平滑，可能会增加bias
+需要调整weight以平衡两种误差，选出模型
+
+![avatar](/pic/13.png)
